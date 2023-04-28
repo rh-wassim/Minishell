@@ -12,7 +12,6 @@
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
 # include "../libft/libft.h"
 # include "../execution/header.h"
 # include <readline/readline.h>
@@ -27,33 +26,7 @@
 # include <string.h>
 # include <errno.h>
 
-extern int	g_val;	//   <--- global variable
-
-// typedef struct s_lst
-// {
-// 	char				*data;
-// 	struct s_lst		*next;
-// }	t_lst;
-
-// typedef struct s_redir
-// {
-// 	int				hrdc;
-// 	int				fd;
-// 	int				type;
-// 	struct s_redir	*next;
-// }	t_redir;
-
-// typedef struct s_pipe
-// {
-// 	char			**arg;
-// 	int				flag;
-// 	int				argcount;
-// 	int				cmdout;
-// 	int				cmdin;
-// 	char			*cmd;
-// 	t_redir			*redir;
-// 	struct s_pipe	*next;
-// }	t_pipe;
+extern int	g_val;
 
 typedef struct s_token
 {
@@ -68,72 +41,39 @@ typedef struct s_token
 		ARG,
 		EQUALS,
 		PIPE,
-	} e_type; // type of token
+	} e_type;
 	char			*value;
 	struct s_token	*next;
 }	t_token;
 
 typedef struct s_lexer
 {
-	char			c; // current char in the input string
-	unsigned int	i; // index into the input string `content`
-	char			*data; // input string
-	int				command_flag; // flag for command
+	char			c;
+	unsigned int	i;
+	char			*data;
+	int				command_flag;
 }	t_lexer;
 
-
-// typedef struct s_token_list
-// {
-// 	t_token				*token;
-// 	struct s_token_list	*next;
-// }	t_token_list;
-
-// typedef struct s_redir
-// {
-// 	int				hrdc;
-// 	int				fd;
-// 	int				type;
-// 	struct s_redir	*next;
-// }	t_redir;
-
-// typedef struct s_pipe
-// {
-// 	char			**arg;
-// 	int				flag;
-// 	int				argcount;
-// 	int				cmdout;
-// 	int				cmdin;
-// 	char			*cmd;
-// 	t_redir			*redir;
-// 	struct s_pipe	*next;
-// }	t_pipe;
-
-
-///////////////////////////LEXER////////////////////////////
-
-t_lexer	*lexer_init(char *data);
-t_token	*token_init(int e_type, char *value);
-t_token	*ft_lex_flag(t_lexer *lexer);
-t_token	*ft_lex_id_collect(t_lexer *lexer, t_lst **lst);
-t_token	*ft_lex_cmp(t_lexer *lexer, char c, t_lst **lst);
-t_token	*ft_token_forward(t_lexer *lexer, int type);
-t_token	*ft_lex_id(t_lexer *lexer, char *value);
-t_token	*ft_lexer(t_lexer *lexer, t_lst **lst);
-char	*ft_char_to_str(t_lexer *lexer);
-int		ft_check_char(char c);
-int		check_str(t_lst *str);
-void	ft_lex_forward(t_lexer *lexer);
-char	*ft_str_collect(t_lexer *lexer, t_lst **lst);
-char	*ft_lex_collect_follar(t_lexer *lexer, t_lst **lst);
-char	*ft_collection(t_lexer *lexer, char c, t_lst **lst);
-void	ft_skip_spaces(t_lexer	*lexer);
-char	*ft_get_env(char *var, t_lst *lst);
-int		ft_cmp(t_lst *s1, char *s2);
-void	free_double(char **str);
-int		change_fd(t_pipe *pipe, int *f);
-
-///////////////////////////PARSING//////////////////////////
-
+t_lexer		*lexer_init(char *data);
+t_token		*token_init(int e_type, char *value);
+t_token		*ft_lex_flag(t_lexer *lexer);
+t_token		*ft_lex_id_collect(t_lexer *lexer, t_lst **lst);
+t_token		*ft_lex_cmp(t_lexer *lexer, char c, t_lst **lst);
+t_token		*ft_token_forward(t_lexer *lexer, int type);
+t_token		*ft_lex_id(t_lexer *lexer, char *value);
+t_token		*ft_lexer(t_lexer *lexer, t_lst **lst);
+char		*ft_char_to_str(t_lexer *lexer);
+int			ft_check_char(char c);
+int			check_str(t_lst *str);
+void		ft_lex_forward(t_lexer *lexer);
+char		*ft_str_collect(t_lexer *lexer, t_lst **lst);
+char		*ft_lex_collect_follar(t_lexer *lexer, t_lst **lst);
+char		*ft_collection(t_lexer *lexer, char c, t_lst **lst);
+void		ft_skip_spaces(t_lexer	*lexer);
+char		*ft_get_env(char *var, t_lst *lst);
+int			ft_cmp(t_lst *s1, char *s2);
+void		free_double(char **str);
+int			change_fd(t_pipe *pipe, int *f);
 
 t_pipe		*ft_parse_init(t_token **token);
 t_redir		*ft_redir(char *value, int type);
@@ -156,7 +96,8 @@ void		ft_fill_parse(int *i, t_token	**token, t_pipe *parse);
 void		ft_sig_quit_hand(int sig);
 void		ft_sig_hand(int sig);
 
-extern 		void rl_replace_line (const char *text, int clear_undo);
-void		rl_clear_history (void);
+void		rl_clear_history(void);
+
+extern void	rl_replace_line(const char *text, int clear_undo);
 
 #endif
