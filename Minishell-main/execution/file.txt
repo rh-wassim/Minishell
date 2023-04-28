@@ -1,0 +1,44 @@
+int rl_on_new_line (void)
+	Tell the update functions that we have moved onto a new (empty) line, usually after outputting a newline.
+
+void rl_clear_history (void)
+	Clear the history list by deleting all of the entries, in the same manner as the History library’s clear_history() function. 
+	This differs from clear_history because it frees private data Readline saves in the history list
+
+void rl_replace_line (const char *text, int clear_undo)
+	Replace the contents of rl_line_buffer with text. The point and mark are preserved, if possible.
+ 	If clear_undo is non-zero, the undo list associated with the current line is cleared
+
+- n Note that there is no newline character at the end of the output, and instead there is a dollar sign ($) 
+character. This is because the "-n" option tells "echo" to not print the newline character, 
+but it doesn't prevent the shell from printing its own prompt on the same line as the output.
+
+chdir():
+The chdir function is used to change the current working directory of the program or process by passing the path 
+to the function as shown in the syntax.The function return a integer value ,it returns 0 if the change of directory 
+was successful otherwise it returns -1 and the current working directory remains unchanged and errno is set to to
+ indicate the error type
+
+
+The getcwd(): 
+char *getcwd(char *buf, size_t size);
+function places an absolute pathname of the current working directory in the array pointed to by buf, 
+and returns buf. The size argument is the size in bytes of the character array pointed to by the buf argument.
+If buf is a null pointer, the behaviour of getcwd() is undefined.The return value represent our current working directory.
+
+
+pwd 
+stands for Print Working Directory. 
+It prints the path of the working directory, starting from the root.
+
+The C library function char *getenv(const char *name) 
+searches for the environment string pointed to by name and returns the associated value to the string.
+ex printf("PATH : %s\n", getenv("PATH"));
+
+The stat 
+is a  command which gives information about the file and filesystem.gives information such as the size of the file,
+ access permissions and the user ID and group ID, birth time access time of the file
+
+ If the WIFEXITED macro indicates that the child process exited normally, the WEXITSTATUS macro returns the exit code specified by 
+ the child. 
+ If the WIFEXITED macro indicates that the child process did not exit normally, the value returned by the WEXITSTATUS macro has no meaning
